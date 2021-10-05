@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, abort
+import random
 
 app = Flask(__name__)
 
@@ -9,7 +10,10 @@ def index():
 
 @app.route('/api/mock1/<id>')
 def mock1(id):
-    return f'api_mock1 {id}'
+    if random.randint(0, 10) > 3:
+        abort(400)
+    else:
+        return f'api_mock1 {id}'
 
 
 @app.route('/api/mock2/<content>')
