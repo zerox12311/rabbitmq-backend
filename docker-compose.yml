@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend:
+    build: .
+    restart: always
+    environment:
+      - DB_URL=COMPOSE_FILE
+    ports:
+      - 8000:8000
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=server
+      - RABBITMQ_DEFAULT_PASS=PASSW0RD
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
